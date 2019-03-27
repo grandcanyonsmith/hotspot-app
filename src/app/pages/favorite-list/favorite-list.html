@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>{{ 'MY_FAVORITES' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #container scrollEvents="true" padding>
+
+  <ion-refresher (ionRefresh)="onReload($event)">
+    <ion-refresher-content pullingText="{{ 'PULL_TO_REFRESH' | translate }}" refreshingText="{{ 'REFRESHING' | translate }}">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert" [text]="'ERROR_NETWORK' | translate">
+  </empty-view>
+
+  <empty-view *ngIf="isEmptyViewVisible" icon="heart" [text]="'EMPTY_FAVORITES' | translate">
+  </empty-view>
+
+  <ion-grid fixed>
+
+    <ion-row *ngIf="isLoadingViewVisible">
+      <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" *ngFor="let item of skeletonArray">
+        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '200px', 'border-radius': '0' }">
+        </ngx-skeleton-loader>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [@staggerIn]="places.length">
+      <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" float-left *ngFor="let place of places">
+        <ion-card class="shadow" no-margin margin-bottom color="light" (click)="navigateTo('places/' + place.id)">
+          <div class="bg-img" defaultImage="./assets/img/placeholder1.png" [lazyLoad]="place.image?.url()"
+            [scrollObservable]="container.ionScroll">
+          </div>
+          <ion-card-content text-nowrap>
+
+            <h3 class="bold ellipsis">{{ place.title }}</h3>
+            <star-rating *ngIf="place.rating" [starType]="'svg'" [size]="'medium'" [readOnly]="true" [showHalfStars]="false"
+              [rating]="place.rating">
+            </star-rating>
+            <ion-text color="medium">
+              <span class="bold text-small">{{ place.category?.title }}</span>
+            </ion-text>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="onLoadMore($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

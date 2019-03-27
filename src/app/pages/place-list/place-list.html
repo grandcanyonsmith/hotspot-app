@@ -1,0 +1,97 @@
+<ion-header no-border no-shadow>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="params.featured">{{ 'FEATURED' | translate }}</span>
+      <span *ngIf="params.nearby">{{ 'NEARBY' | translate }}</span>
+      <span *ngIf="params.category">{{ params.category.title }}</span>
+      <span *ngIf="!params.category &&!params.featured && !params.nearby">
+        {{ 'NEW' | translate }}
+      </span>
+    </ion-title>
+    <ion-buttons class="show-md-up hide-xs-only hide-sm-only" slot="end">
+      <ion-button fill="outline" color="light" (click)="navigateTo(currentPath + '/map')">
+        {{ 'VIEW_ON_MAP' | translate }}
+      </ion-button>
+      <ion-button fill="solid" color="light" (click)="onAddPlaceButtonTouched()">
+        {{ 'ADD_PLACE' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #container scrollEvents="true" padding>
+
+  <ion-refresher (ionRefresh)="onReload($event)">
+    <ion-refresher-content pullingText="{{ 'PULL_TO_REFRESH' | translate }}" refreshingText="{{ 'REFRESHING' | translate }}">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert" [text]="'ERROR_NETWORK' | translate">
+  </empty-view>
+
+  <empty-view *ngIf="isEmptyViewVisible" icon="map" [text]="'EMPTY_PLACES' | translate">
+  </empty-view>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="show-xs-only hide-md-up">
+    <ion-fab-button>
+      <ion-icon name="menu"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="navigateTo(currentPath + '/map')">
+        <ion-icon name="map" color="primary"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="onAddPlaceButtonTouched()">
+        <ion-icon name="create" color="primary"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-grid fixed>
+
+    <ion-row *ngIf="isLoadingViewVisible">
+      <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" *ngFor="let item of skeletonArray">
+        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '200px', 'border-radius': '0' }">
+        </ngx-skeleton-loader>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [@staggerIn]="places.length">
+      <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" float-left *ngFor="let place of places">
+        <ion-card class="shadow" no-margin margin-bottom color="light" (click)="onPlaceTouched(place)">
+          <div class="bg-img" defaultImage="./assets/img/placeholder1.png" [lazyLoad]="place.image?.url()"
+            [scrollObservable]="container.ionScroll">
+          </div>
+          <ion-card-content>
+            <ion-row no-padding>
+              <ion-col size="8">
+                <div text-nowrap>
+                  <h3 class="bold ellipsis">{{ place.title }}</h3>
+                  <star-rating [starType]="'svg'" [size]="'medium'" [readOnly]="true" [showHalfStars]="false" [rating]="place.rating">
+                  </star-rating>
+                  <ion-text color="medium">
+                    <span class="bold text-small">{{ place.category?.title }}</span>
+                  </ion-text>
+                </div>
+              </ion-col>
+              <ion-col size="4" text-end align-self-end>
+                <ion-label color="primary" *ngIf="params.nearby">
+                  <small class="bold">
+                    {{ place.distance(params.location, params.unit) }}
+                  </small>
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="onLoadMore($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

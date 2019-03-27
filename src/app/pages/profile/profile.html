@@ -1,0 +1,183 @@
+<ion-header no-border>
+  <ion-toolbar class="transparent" color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'PROFILE' | translate }}</ion-title>
+    <ion-buttons slot="end" *ngIf="user">
+      <ion-button fill="clear" (click)="onPresentSettingsModal()">
+        {{ 'SETTINGS' | translate }}
+      </ion-button>
+      <ion-button fill="clear" (click)="onPresentEditModal()">
+        {{ 'EDIT' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+
+    <ion-row *ngIf="!user">
+
+      <ion-col size-xs="12" size-md="6">
+        <div class="hero-container" text-center>
+          <img class="hero-img" src="./assets/img/id-card-512.png" />
+        </div>
+      </ion-col>
+
+      <ion-col size-xs="12" size-md="6" text-center>
+        <div class="intro">
+          <div>
+            <h2 text-uppercase>{{ 'WELCOME_BACK' | translate }}</h2>
+            <ion-text color="medium">
+              <p class="bold custom-line-height">
+                {{ 'WELCOME_TEXT' | translate }}
+              </p>
+            </ion-text>
+
+            <div padding>
+              <ion-button expand="block" shape="round" color="primary" (click)="openSignInModal()">
+                {{ 'CREATE_ACCOUNT_OR_LOGIN' | translate }}
+              </ion-button>
+            </div>
+            
+          </div>
+        </div>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row justify-content-center *ngIf="user">
+      <ion-col no-padding size-xs="12" size-sm size-md size-lg="8">
+
+        <div>
+          <section class="heading">
+            <ion-avatar>
+              <img src-fallback="./assets/img/avatar.png" [src]="user?.attributes.photo?.url()" />
+            </ion-avatar>
+            <ion-text color="light">
+              <h3>{{ user?.attributes.name }}</h3>
+            </ion-text>
+
+            <ion-button size="small" shape="round" fill="outline" color="light" *ngIf="!user?.attributes.authData"
+              (click)="onPresentChangePasswordModal()">
+              {{ 'CHANGE_PASSWORD' | translate }}
+            </ion-button>
+
+            <ion-button margin-vertical size="small" fill="clear" color="warning" (click)="onLogout()">
+              {{ 'LOGOUT' | translate }}
+            </ion-button>
+          </section>
+          <ion-segment color="primary" [value]="segment" (ionChange)="onSegmentChanged($event)">
+            <ion-segment-button value="likes">
+              <ion-label><span class="bold">{{ 'LIKES' | translate }}</span></ion-label>
+              <ion-icon name="heart"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="places">
+              <ion-label><span class="bold">{{ 'MY_PLACES' | translate }}</span></ion-label>
+              <ion-icon name="pin"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="comments">
+              <ion-label><span class="bold">{{ 'REVIEWS' | translate }}</span></ion-label>
+              <ion-icon name="chatbubbles"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+
+          <!-- Liked places -->
+
+          <ion-list padding lines="none" *ngIf="segment === 'likes'" [@staggerIn]="likedPlaces.length">
+            <div *ngIf="!likedPlaces.length" text-center>
+              <ion-text color="medium">
+                <p class="text-medium">
+                  {{ 'EMPTY_DATA' | translate }}
+                </p>
+              </ion-text>
+            </div>
+            <ion-item class="shadow" color="light" margin-bottom *ngFor="let place of likedPlaces" (click)="onPlaceTouched(place)">
+              <ion-thumbnail slot="start">
+                <img [src]="place.imageThumb?.url()" src-fallback="./assets/img/placeholder1.png" />
+              </ion-thumbnail>
+              <ion-label text-nowrap>
+                <h3 class="bold ellipsis">{{ place.title }}</h3>
+                <star-rating *ngIf="place.rating" [starType]="'svg'" [size]="'medium'" [readOnly]="true"
+                  [showHalfStars]="false" [rating]="place.rating">
+                </star-rating>
+                <ion-text color="medium">
+                  <p class="bold no-margin">{{ place.category?.title }}</p>
+                </ion-text>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+          <!-- My Places -->
+
+          <ion-list padding lines="none" *ngIf="segment === 'places'" [@staggerIn]="places.length">
+            <div *ngIf="!places.length" text-center>
+              <ion-text color="medium">
+                <p class="text-medium">
+                  {{ 'EMPTY_DATA' | translate }}
+                </p>
+              </ion-text>
+            </div>
+            <ion-item class="shadow" color="light" margin-bottom *ngFor="let place of places" (click)="onPlaceTouched(place)">
+              <ion-thumbnail slot="start">
+                <img [src]="place.imageThumb?.url()" src-fallback="./assets/img/placeholder1.png" />
+              </ion-thumbnail>
+              <ion-label text-wrap>
+                <h3 class="bold ellipsis">{{ place.title }}</h3>
+                <star-rating *ngIf="place.rating" [starType]="'svg'" [size]="'medium'" [readOnly]="true"
+                  [showHalfStars]="false" [rating]="place.rating">
+                </star-rating>
+                <ion-text color="medium">
+                  <p class="bold no-margin">{{ place.category?.title }}</p>
+                </ion-text>
+              </ion-label>
+              <ion-chip class="text-small"
+                [color]="getStatusColor(place.status)" slot="end">
+                <span *ngIf="place.status === 'Pending'">{{ 'PENDING' | translate }}</span>
+                <span *ngIf="place.status === 'Rejected'">{{ 'REJECTED' | translate }}</span>
+                <span *ngIf="place.status === 'Approved'">{{ 'APPROVED' | translate }}</span>
+              </ion-chip>
+            </ion-item>
+          </ion-list>
+
+          <!-- Reviews  -->
+
+          <ion-list lines="none" padding *ngIf="segment === 'comments'" [@staggerIn]="reviews.length">
+            <div *ngIf="!reviews.length" text-center>
+              <ion-text color="medium">
+                <p class="text-medium">
+                  {{ 'EMPTY_REVIEWS' | translate }}
+                </p>
+              </ion-text>
+            </div>
+            <div class="shadow" margin-bottom *ngFor="let review of reviews">
+              <ion-item color="light" (click)="navigateTo(currentPath + '/places/' + review.place.id)">
+                <ion-thumbnail slot="start">
+                  <img [src]="review.place?.imageThumb?.url()" src-fallback="./assets/img/placeholder1.png" />
+                </ion-thumbnail>
+                <ion-label text-wrap>
+                  <ion-text color="medium" float-end>
+                    <span class="text-small">
+                      {{ review.createdAt | date:'mediumDate' }}
+                    </span>
+                  </ion-text>
+                  <h3 class="bold">{{ review.place?.title }}</h3>
+                  <star-rating [starType]="'svg'" [size]="'small'" [readOnly]="true" [showHalfStars]="false" [rating]="review.rating">
+                  </star-rating>
+                  <ion-text color="dark">
+                    <p class="text-medium">{{ review.comment }}</p>
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

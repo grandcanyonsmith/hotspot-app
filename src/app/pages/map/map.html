@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-searchbar color="light" mode="ios"
+        [placeholder]="'ENTER_ADDRESS' | translate"
+        (keyup.enter)="onSearchAddress($event)">
+      </ion-searchbar>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="fullscreen" no-padding fixed>
+    <ion-row class="fullscreen" justify-content-center>
+      <ion-col class="fullscreen" size-xs="12" size-md="8" size-lg="8">
+        <div #map class="map"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

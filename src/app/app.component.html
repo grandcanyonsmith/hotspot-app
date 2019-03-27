@@ -1,0 +1,74 @@
+<ion-app>
+  <!--
+  <ion-menu>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-item color="dark" *ngIf="user">
+          <ion-avatar slot="start">
+            <img src-fallback="./assets/img/avatar.png"
+              [src]="user?.attributes.photo?.url()" />
+          </ion-avatar>
+          <ion-label>
+            <span class="bold">{{ user?.attributes.name }}</span>
+          </ion-label>
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list class="transparent" lines="none">
+        <ion-menu-toggle auto-hide="false">
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/">
+            <ion-icon slot="start" color="primary" name="home"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'HOME' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/map">
+            <ion-icon slot="start" color="primary" name="pin"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'MAP' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/favorites">
+            <ion-icon slot="start" color="primary" name="heart"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'FAVORITES' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/add">
+            <ion-icon slot="start" color="primary" name="create"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'ADD_PLACE' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/posts">
+            <ion-icon slot="start" color="primary" name="notifications"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'POSTS' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/profile">
+            <ion-icon slot="start" color="primary" name="person"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'PROFILE' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'root'" routerLink="/settings">
+            <ion-icon slot="start" color="primary" name="cog"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'SETTINGS' | translate }}</span>
+            </ion-label>
+          </ion-item>
+          <ion-item color="dark" [routerDirection]="'forward'" routerLink="/sign-in" *ngIf="!user">
+            <ion-icon slot="start" color="primary" name="log-in"></ion-icon>
+            <ion-label>
+              <span class="bold">{{ 'LOGIN' | translate }}</span>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  -->
+  <ion-router-outlet main></ion-router-outlet>
+</ion-app>

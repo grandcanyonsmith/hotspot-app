@@ -1,0 +1,66 @@
+ion-content {
+  --padding-top: 60px;
+}
+
+ion-item {
+  --border-radius: 4px;
+  margin-top: 40px;
+}
+
+.rating {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  &.color-ok .star-container {
+    .star {
+      svg {
+        fill: #ff0 !important;
+      }
+
+      i {
+        color: #ff0 !important;
+      }
+    }
+  }
+
+  &.color-positive .star-container {
+    .star {
+      svg {
+        fill: #ff0 !important;
+      }
+
+      i {
+        color: #ff0 !important;
+      }
+    }
+  }
+
+  &.color-default .star-container {
+    .star {
+      svg {
+        fill: #ff0 !important;
+      }
+
+      i {
+        color: #ff0 !important;
+      }
+    }
+  }
+
+  &.color-negative .star-container {
+    .star {
+      svg {
+        fill: #ff0 !important;
+      }
+
+      i {
+        color: #ff0 !important;
+      }
+    }
+  }
+
+  .star-container {
+    margin: 48px 0;
+  }
+}

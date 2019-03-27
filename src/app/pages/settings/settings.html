@@ -1,0 +1,61 @@
+<ion-header no-border>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="onDismiss()">
+          <ion-icon slot="start" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>{{ 'SETTINGS' | translate }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+  <ion-list no-lines>
+    <ion-radio-group allowEmptySelection="false" [value]="preference.unit" (ionChange)="onChangeUnit($event)">
+      <ion-list-header>
+        <ion-text color="primary">
+          <p ion-text class="bold">
+            {{ 'DISTANCE_UNIT' | translate }}
+          </p>
+        </ion-text>
+      </ion-list-header>
+      <ion-item color="light" no-lines>
+        <ion-label class="text-medium bold">Mi</ion-label>
+        <ion-radio value="mi"></ion-radio>
+      </ion-item>
+      <ion-item color="light" no-lines>
+        <ion-label class="text-medium bold">Km</ion-label>
+        <ion-radio value="km"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-list no-lines>
+    <ion-radio-group allowEmptySelection="false" [value]="preference.lang" (ionChange)="onChangeLang($event)">
+      <ion-list-header>
+        <ion-text color="primary">
+          <p ion-text class="bold">{{ 'LANGUAGE' | translate }}</p>
+        </ion-text>
+      </ion-list-header>
+      <ion-item color="light" no-lines>
+        <ion-label class="text-medium bold">{{ 'ENGLISH' | translate }}</ion-label>
+        <ion-radio value="en"></ion-radio>
+      </ion-item>
+      <ion-item color="light" no-lines>
+        <ion-label class="text-medium bold">{{ 'SPANISH' | translate }}</ion-label>
+        <ion-radio value="es"></ion-radio>
+      </ion-item>
+      <ion-item color="light" no-lines>
+        <ion-label class="text-medium bold">{{ 'ARABIC' | translate }}</ion-label>
+        <ion-radio value="ar"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <div text-center>
+    <ion-button shape="round" color="primary" (click)="presentWalkthroughModal()">
+      {{ 'OPEN_WALKTHROUGH' | translate }}
+    </ion-button>
+  </div>
+</ion-content>

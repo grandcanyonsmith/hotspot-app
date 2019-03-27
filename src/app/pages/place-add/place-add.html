@@ -1,0 +1,107 @@
+<ion-header no-border>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ "ADD_PLACE" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid no-padding fixed>
+    <ion-row justify-content-center>
+      <ion-col size-xs="12" size-lg="8">
+
+        <ion-searchbar color="light"
+          [placeholder]="'ENTER_ADDRESS' | translate"
+          (keyup.enter)="onSearchAddress($event)">
+        </ion-searchbar>
+
+        <div #map class="map" id="map"></div>
+
+        <ion-text color="dark">
+          <h4 class="text-medium">{{ 'UPLOAD_IMAGES' | translate }}</h4>
+        </ion-text>
+
+        <ion-slides margin-vertical pager="false" [options]="slidesConfig">
+          <ion-slide>
+            <div>
+              <app-upload-box
+                [text]="'FEATURED_IMAGE' | translate"
+                (onFileUploaded)="onMainFileUploaded($event)">
+              </app-upload-box>
+            </div>
+          </ion-slide>
+          <ion-slide *ngFor="let upload of uploads">
+            <div>
+              <app-upload-box (onFileUploaded)="onFileUploaded($event, upload)">
+              </app-upload-box>
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+        <ion-list padding>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" #myForm="ngForm" novalidate>
+
+            <ion-label position="stacked" color="medium">
+              <span class="bold">{{ 'NAME' | translate }}</span>
+            </ion-label>
+            <ion-item margin-vertical lines="none" color="light">
+              <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+
+            <ion-label position="stacked" color="medium">
+              <span class="bold">{{ 'CATEGORY' | translate }}</span>
+            </ion-label>
+            <ion-item margin-vertical lines="none" color="light">
+              <ion-label></ion-label>
+              <ion-select formControlName="category" interface="popover" [okText]="'OK' | translate" [cancelText]="'CANCEL' | translate">
+                <ion-select-option *ngFor="let category of categories" [value]="category">
+                  {{ category.title }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-label position="stacked" color="medium">
+              <span class="bold">{{ 'DESCRIPTION' | translate }}</span>
+            </ion-label>
+            <ion-item margin-vertical lines="none" color="light">
+              <ion-textarea rows="4" formControlName="description"></ion-textarea>
+            </ion-item>
+
+            <ion-label position="stacked" color="medium">
+              <span class="bold">{{ 'WEBSITE' | translate }}</span>
+            </ion-label>
+            <ion-item margin-vertical lines="none" color="light">
+              <ion-input type="url" formControlName="website"></ion-input>
+            </ion-item>
+
+            <ion-label position="stacked" color="medium">
+              <span class="bold">{{ 'ADDRESS' | translate }}</span>
+            </ion-label>
+            <ion-item margin-vertical lines="none" color="light">
+              <ion-input type="text" formControlName="address"></ion-input>
+            </ion-item>
+
+            <ion-label position="stacked" color="medium">
+              <span class="bold">{{ 'PHONE' | translate }}</span>
+            </ion-label>
+            <ion-item margin-vertical lines="none" color="light">
+              <ion-input type="text" formControlName="phone"></ion-input>
+            </ion-item>
+
+            <div text-center>
+              <ion-button type="submit" shape="round" color="secondary">
+                {{ 'SUBMIT' | translate }}
+              </ion-button>
+            </div>
+
+          </form>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

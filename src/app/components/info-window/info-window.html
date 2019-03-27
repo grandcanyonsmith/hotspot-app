@@ -1,0 +1,40 @@
+<ion-item class="transparent" lines="none">
+  <ion-thumbnail slot="start">
+    <img [src]="place.imageThumb?.url()"
+      src-fallback="./assets/img/placeholder1.png" />
+  </ion-thumbnail>
+  <ion-label>
+    <ion-text color="dark">
+      <h2 class="text-medium bold no-margin ellipsis">
+        {{ place.title }}
+      </h2>
+    </ion-text>
+    <ion-text color="medium">
+      <p class="text-small bold no-margin">
+        {{ place.category.title }}
+      </p>
+    </ion-text>
+    <star-rating
+      [starType]="'svg'"
+      [size]="'small'"
+      [readOnly]="true"
+      [showHalfStars]="false"
+      [rating]="place.rating">
+    </star-rating>
+  </ion-label>
+  
+  <div slot="end">
+    <ion-text color="primary">
+      <span class="text-small bold">
+        {{ place.distance(location, unit) }}
+      </span>
+    </ion-text>
+  </div>
+</ion-item>
+<ion-row no-padding>
+  <ion-col text-center>
+    <ion-button size="small" shape="round" color="secondary" (click)="goToPlace()">
+      {{ 'VIEW_MORE' | translate }}
+    </ion-button>
+  </ion-col>
+</ion-row>

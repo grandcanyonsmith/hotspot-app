@@ -1,0 +1,279 @@
+<ion-header no-border>
+  <ion-toolbar color="primary" fixed>
+    <ion-title>
+      <a routerLink="/">
+        <img class="logo" height="30" src="./assets/img/logo-1.png" />
+      </a>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="navigateTo(currentPath + '/search')">
+        <ion-icon name="search" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content #container scrollEvents="true">
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert" [text]="'ERROR_NETWORK' | translate">
+  </empty-view>
+
+  <ion-grid no-padding fixed>
+
+    <section *ngIf="isLoadingViewVisible">
+      <div>
+        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '250px', 'border-radius': '4px' }">
+        </ngx-skeleton-loader>
+      </div>
+
+      <ion-row nowrap>
+        <ion-col size-xs="4" size-sm="6" size-md="6" size-lg="2" *ngFor="let item of skeletonArray">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '75px', 'border-radius': '4px' }">
+          </ngx-skeleton-loader>
+        </ion-col>
+      </ion-row>
+
+      <ion-row nowrap>
+        <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="3" *ngFor="let item of skeletonArray">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '150px', 'border-radius': '4px' }">
+          </ngx-skeleton-loader>
+        </ion-col>
+      </ion-row>
+
+      <ion-row nowrap>
+        <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="3" *ngFor="let item of skeletonArray">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '150px', 'border-radius': '4px' }">
+          </ngx-skeleton-loader>
+        </ion-col>
+      </ion-row>
+
+      <ion-row nowrap>
+        <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="3" *ngFor="let item of skeletonArray">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '150px', 'border-radius': '4px' }">
+          </ngx-skeleton-loader>
+        </ion-col>
+      </ion-row>
+    </section>
+
+    <section *ngIf="isContentViewVisible">
+
+      <!-- Top Slide List -->
+
+      <div padding>
+        <ion-slides pager="true" (ionSlidesDidLoad)="onSlidesTopDidLoad($event)" (ionSlideWillChange)="onSlidesTopWillChange($event)"
+          [options]="slideOpts">
+          <ion-slide *ngFor="let slide of slides" (click)="onSlideTouched(slide)">
+            <div class="slide-img fade-in" defaultImage="./assets/img/placeholder-slide.png" [lazyLoad]="slide.image?.url()"
+              [scrollObservable]="slidesTopObservable">
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
+      <!-- Category List -->
+
+      <ion-row padding>
+        <ion-col size="6">
+          <h5 text-start no-margin>
+            {{ 'CATEGORIES' | translate }}
+          </h5>
+        </ion-col>
+        <ion-col size="6">
+          <ion-text color="primary">
+            <h5 class="link" no-margin text-end (click)="navigateTo(currentPath + '/categories')">
+              {{ 'VIEW_ALL' | translate }}
+            </h5>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-slides (ionSlidesDidLoad)="onSlidesCategoryDidLoad($event)" (ionSlideDrag)="onSlidesCategoryDrag($event)"
+        pager="false" [options]="slideCategoryConfig">
+        <ion-slide *ngFor="let category of categories" (click)="navigateTo(currentPath + '/places', { category: category.id })">
+          <div>
+            <ion-card class="card-category fade-in" color="light">
+              <img defaultImage="./assets/img/placeholder1.png" [scrollObservable]="slidesCategoryObservable"
+                [lazyLoad]="category.imageThumb?.url()" />
+              <ion-card-content text-center text-nowrap>
+                <p class="text-small bold ellipsis">{{ category.title }}</p>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-slide>
+      </ion-slides>
+
+      <!-- Featured Places -->
+
+      <section *ngIf="featuredPlaces.length">
+
+        <ion-row padding>
+          <ion-col size="6">
+            <h5 text-start no-margin>
+              {{ 'FEATURED' | translate }}
+            </h5>
+          </ion-col>
+          <ion-col size="6">
+            <ion-text color="primary">
+              <h5 class="link" no-margin text-end (click)="navigateTo(currentPath + '/places', { featured: 1 })">
+                {{ 'VIEW_ALL' | translate }}
+              </h5>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-slides pager="false" (ionSlidesDidLoad)="onSlidesFeaturedDidLoad($event)" (ionSlideDrag)="onSlidesFeaturedDrag($event)"
+          [options]="slidePlaceConfig">
+          <ion-slide *ngFor="let place of featuredPlaces" (click)="onPlaceTouched(place)">
+            <div text-start>
+              <ion-card class="card-place fade-in" color="light">
+                <img defaultImage="./assets/img/placeholder1.png" [scrollObservable]="slidesFeaturedObservable"
+                  [lazyLoad]="place.imageThumb?.url()" />
+                <ion-card-content>
+                  <h3 class="text-medium link ellipsis bold">
+                    {{ place.title }}
+                  </h3>
+                  <ion-text color="medium">
+                    <p class="text-medium ellipsis bold">
+                      {{ place.category.title }}
+                    </p>
+                  </ion-text>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+      </section>
+
+      <!-- New Places -->
+
+      <section *ngIf="newPlaces.length">
+
+        <ion-row padding>
+          <ion-col size="6">
+            <h5 text-start no-margin>{{ 'NEW' | translate }}</h5>
+          </ion-col>
+          <ion-col size="6">
+            <ion-text color="primary">
+              <h5 class="link" no-margin text-end (click)="navigateTo(currentPath + '/places')">
+                {{ 'VIEW_ALL' | translate }}
+              </h5>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-slides pager="false" (ionSlidesDidLoad)="onSlidesLastAddedDidLoad($event)" (ionSlideDrag)="onSlidesLastAddedDrag($event)"
+          [options]="slidePlaceConfig">
+          <ion-slide *ngFor="let place of newPlaces" (click)="onPlaceTouched(place)">
+            <div text-start>
+              <ion-card class="card-place fade-in" color="light">
+                <img defaultImage="./assets/img/placeholder1.png" [scrollObservable]="slidesLastAddedObservable"
+                  [lazyLoad]="place.imageThumb?.url()" />
+                <ion-card-content>
+                  <h3 class="text-medium link bold ellipsis">
+                    {{ place.title }}
+                  </h3>
+                  <ion-text color="medium">
+                    <p class="text-medium ellipsis bold">
+                      {{ place.category.title }}
+                    </p>
+                  </ion-text>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+      </section>
+
+      <!-- Nearby Places -->
+
+      <section *ngIf="nearbyPlaces.length">
+
+        <ion-row padding>
+          <ion-col size="6">
+            <h5 text-start no-margin>{{ 'NEARBY' | translate }}</h5>
+          </ion-col>
+          <ion-col size="6">
+            <ion-text color="primary">
+              <h5 class="link" ion-text color="primary" no-margin text-end (click)="navigateTo(currentPath + '/places', { nearby: 1 })">
+                {{ 'VIEW_ALL' | translate }}
+              </h5>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-slides pager="false" (ionSlidesDidLoad)="onSlidesNearbyDidLoad($event)" (ionSlideDrag)="onSlidesNearbyDrag($event)"
+          [options]="slidePlaceConfig">
+          <ion-slide *ngFor="let place of nearbyPlaces" (click)="onPlaceTouched(place)">
+            <div text-start>
+              <ion-card class="card-place fade-in" color="light">
+                <img defaultImage="./assets/img/placeholder1.png" [scrollObservable]="slidesNearbyObservable"
+                  [lazyLoad]="place.imageThumb?.url()" />
+                <ion-card-content>
+                  <h3 class="text-medium link bold ellipsis">
+                    {{ place.title }}
+                  </h3>
+                  <ion-text color="medium">
+                    <p class="text-medium ellipsis bold">
+                      {{ place.category.title }}
+                    </p>
+                  </ion-text>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+      </section>
+
+      <!-- Random places -->
+
+      <ion-row padding>
+        <ion-col size="6">
+          <h5 text-start no-margin>{{ 'MORE_PLACES' | translate }}</h5>
+        </ion-col>
+        <ion-col size="6">
+          <ion-text color="primary">
+            <h5 class="link" ion-text color="primary" no-margin text-end (click)="navigateTo(currentPath + '/places')">
+              {{ 'VIEW_ALL' | translate }}
+            </h5>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="place-row">
+        <ion-col size-xs="6" size-sm="4" size-md="3" float-left *ngFor="let place of randomPlaces" (click)="onPlaceTouched(place)">
+
+          <ion-card class="full-width fade-in" no-margin color="light">
+
+            <div class="image-container">
+              <img defaultImage="./assets/img/placeholder1.png" [lazyLoad]="place.imageThumb?.url()" [scrollObservable]="container.ionScroll" />
+            </div>
+
+            <ion-card-content text-nowrap>
+              <h3 class="text-medium ellipsis bold">
+                {{ place.title }}
+              </h3>
+              <star-rating [starType]="'svg'" [size]="'medium'" [readOnly]="true" [showHalfStars]="false" [rating]="place.rating">
+              </star-rating>
+              <ion-text color="medium">
+                <p class="text-medium ellipsis bold" ion-text color="medium">
+                  {{ place.category.title }}
+                </p>
+              </ion-text>
+
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+
+    </section>
+
+    <ion-infinite-scroll (ionInfinite)="onLoadMore($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </ion-grid>
+
+</ion-content>
