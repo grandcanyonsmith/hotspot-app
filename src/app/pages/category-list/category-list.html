@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary" fixed>
+  <ion-toolbar color="success" fixed>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -30,8 +30,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-row [@staggerIn]="categories.length">
-      <ion-col no-padding size-xs="12" size-sm="6" size-md="6" size-lg="8" size-lg="4" float-left *ngFor="let category of categories">
+    <ion-row [@staggerIn]="categories.length" align-self-start>
+      <ion-col no-padding size-xs="1" size-sm="1" size-md="1" size-lg="1" size-lg="1" float-left *ngFor="let category of categories" >
         <div class="card" (click)="navigateTo(currentPath + '/places', { category: category.id })">
           <div class="bg-img" defaultImage="./assets/img/placeholder1.png" [lazyLoad]="category.image?.url()"
             [scrollObservable]="container.ionScroll">

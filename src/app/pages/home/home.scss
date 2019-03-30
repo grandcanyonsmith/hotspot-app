@@ -39,3 +39,9 @@ ion-searchbar {
 ion-row[nowrap] {
     overflow: hidden;
 }
+
+ion-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

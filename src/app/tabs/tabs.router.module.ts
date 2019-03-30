@@ -125,6 +125,15 @@ const routes: Routes = [
           },
         ]
       },
+      // {
+      //   path: 'temporary-sites',
+      //   children: [
+      //     {
+      //     path: 'temporary-sites',
+      //     loadChildren: '../temporary-sites/temporary-sites.page.module#PlaceListPageModule'
+      //     }
+      //   ]
+      // },
       {
         path: 'places',
         children: [
@@ -172,7 +181,11 @@ const routes: Routes = [
           {
             path: ':id/:slug',
             loadChildren: '../pages/place-detail/place-detail.module#PlaceDetailPageModule'
-          }
+          },
+          // {
+          //   path: 'temporary-sites',
+          //   loadChildren: '../temporary-sites.module#TemporarySitesPageModule'
+          // },
         ]
       },
       {

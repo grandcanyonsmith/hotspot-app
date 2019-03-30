@@ -9,7 +9,7 @@ export const environment = {
   appImageUrl: 'https://trynearme.app/assets/img/nearme.png',
   appId: 'myAppId',
   fbId: 'YOUR_FB_ID',
-  googleMapsApiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
+  googleMapsApiKey: 'AIzaSyC_89y3BmhQNr5wJiIL-q7nx5G1JHKRZ4Y',
   androidHeaderColor: '#d82c6b',
   defaultUnit: 'mi',
   defaultLang: 'en'

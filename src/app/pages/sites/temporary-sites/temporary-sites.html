@@ -1,0 +1,57 @@
+<!-- <ion-header>
+    <ion-toolbar color="primary" fixed>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-searchbar mode="ios" (keyup.enter)="onSearch($event)" [placeholder]="'SEARCH' | translate">
+      </ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content #container scrollEvents="true" padding>
+  
+    <ion-refresher (ionRefresh)="loadData($event)">
+      <ion-refresher-content pullingText="{{ 'PULL_TO_REFRESH' | translate }}" refreshingText="{{ 'REFRESHING' | translate }}">
+      </ion-refresher-content>
+    </ion-refresher>
+  <!--  -->
+    <!-- <empty-view *ngIf="isErrorViewVisible" icon="alert" [text]="'ERROR_NETWORK' | translate">
+    </empty-view>
+  
+    <empty-view *ngIf="isEmptyViewVisible" icon="alert" [text]="'EMPTY_DATA' | translate">
+    </empty-view>
+  
+    <ion-grid fixed>
+  
+      <ion-row *ngIf="isLoadingViewVisible">
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" *ngFor="let item of skeletonArray">
+          <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ width: '100%', height: '200px', 'border-radius': '0' }">
+          </ngx-skeleton-loader>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row [@staggerIn]="places.length">
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" float-left *ngFor="let place of places" (click)="onPlaceTouched(place)">
+          <ion-card class="shadow" color="light" no-margin>
+  
+            <div class="bg-img" defaultImage="./assets/img/placeholder1.png"
+              [lazyLoad]="place.image?.url()"
+              [scrollObservable]="container.ionScroll">
+            </div>
+  
+            <ion-card-content no-padding padding text-nowrap>
+              <h3 class="ellipsis bold">{{ place.title }}</h3>
+              <star-rating [starType]="'svg'" [size]="'medium'" [readOnly]="true" [showHalfStars]="false" [rating]="place.rating"></star-rating>
+              <ion-text color="medium">
+                <p class="text-medium ellipsis bold">
+                  {{ place.category.title }}
+                </p>
+              </ion-text>
+  
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+  </ion-content> --> -->

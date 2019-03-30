@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-toolbar class="transparent" color="primary" fixed>
+  <ion-toolbar class="transparent" color="medium" fixed>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -38,7 +38,7 @@
             </ion-text>
 
             <div padding>
-              <ion-button expand="block" shape="round" color="primary" (click)="openSignInModal()">
+              <ion-button expand="block" shape="round" color="medium" (click)="openSignInModal()">
                 {{ 'CREATE_ACCOUNT_OR_LOGIN' | translate }}
               </ion-button>
             </div>
@@ -70,7 +70,7 @@
               {{ 'LOGOUT' | translate }}
             </ion-button>
           </section>
-          <ion-segment color="primary" [value]="segment" (ionChange)="onSegmentChanged($event)">
+          <ion-segment color="medium" [value]="segment" (ionChange)="onSegmentChanged($event)">
             <ion-segment-button value="likes">
               <ion-label><span class="bold">{{ 'LIKES' | translate }}</span></ion-label>
               <ion-icon name="heart"></ion-icon>

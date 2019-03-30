@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary" fixed>
+  <ion-toolbar color="medium" fixed>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -132,7 +132,7 @@
                   </ion-thumbnail>
                   <ion-label text-nowrap>
                     <ion-text color="dark">
-                      <h2 class="bold ellipsis" ion-text color="primary">
+                      <h2 class="bold ellipsis" ion-text color="medium">
                         {{ place?.title }}
                       </h2>
                     </ion-text>
@@ -259,7 +259,7 @@
                     <ion-icon slot="start" name="map"></ion-icon>
                     <ion-label text-wrap>
                       <span class="text-medium">{{ place?.address }}</span>
-                      <ion-label color="primary">
+                      <ion-label color="medium">
                         <span class="text-medium link" (click)="onDirectionsButtonTouched()">
                           {{ 'GET_DIRECTIONS' | translate }}
                         </span>
@@ -269,7 +269,7 @@
                   <ion-item color="light" *ngIf="place?.website" (click)="openUrl(place.website)">
                     <ion-icon slot="start" name="globe"></ion-icon>
                     <ion-label>
-                      <ion-text color="primary">
+                      <ion-text color="medium">
                         <span class="text-medium link">{{ place?.website }}</span>
                       </ion-text>
                     </ion-label>
@@ -277,7 +277,7 @@
                   <ion-item color="light" *ngIf="place?.phone" (click)="onCall()">
                     <ion-icon slot="start" name="call"></ion-icon>
                     <ion-label>
-                      <ion-text color="primary">
+                      <ion-text color="medium">
                         <span class="text-medium link">{{ place?.phone }}</span>
                       </ion-text>
                     </ion-label>
@@ -285,7 +285,7 @@
                   <ion-item color="light" *ngIf="place?.facebook" (click)="openUrl(place.facebook)">
                     <ion-icon slot="start" name="logo-facebook"></ion-icon>
                     <ion-label>
-                      <ion-text color="primary">
+                      <ion-text color="medium">
                         <span class="text-medium link">{{ place?.facebook }}</span>
                       </ion-text>
                     </ion-label>
@@ -293,7 +293,7 @@
                   <ion-item color="light" *ngIf="place?.instagram" (click)="openUrl(place.instagram)">
                     <ion-icon slot="start" name="logo-instagram"></ion-icon>
                     <ion-label>
-                      <ion-text color="primary">
+                      <ion-text color="medium">
                         <span class="text-medium link">{{ place?.instagram }}</span>
                       </ion-text>
                     </ion-label>
@@ -301,7 +301,7 @@
                   <ion-item color="light" *ngIf="place?.youtube" (click)="openUrl(place.youtube)">
                     <ion-icon slot="start" name="logo-youtube"></ion-icon>
                     <ion-label>
-                      <ion-text color="primary">
+                      <ion-text color="medium">
                         <span class="text-medium link">{{ place?.youtube }}</span>
                       </ion-text>
                     </ion-label>

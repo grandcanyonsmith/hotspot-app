@@ -12,6 +12,7 @@ import {
 } from '@angular/animations';
 
 
+
 @Component({
   selector: 'page-favorite-list',
   templateUrl: 'favorite-list.html',

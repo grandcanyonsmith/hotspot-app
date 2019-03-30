@@ -1,9 +1,9 @@
 {
   "name": "HotSpot",
   "short_name": "HotSpot",
-  "theme_color": "#2196f3",
-  "background_color": "#2196f3",
-  "display": "browser",
+  "theme_color": "#D4145A",
+  "background_color": "#fafafa",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "icons": [

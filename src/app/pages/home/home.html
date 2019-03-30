@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-toolbar color="primary" fixed>
+  <ion-toolbar color="medium" fixed>
     <ion-title>
       <a routerLink="/">
         <img class="logo" height="30" src="./assets/img/logo-1.png" />
@@ -11,6 +11,8 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+
 </ion-header>
 <ion-content #container scrollEvents="true">
 
@@ -72,13 +74,13 @@
       <!-- Category List -->
 
       <ion-row padding>
-        <ion-col size="6">
+        <ion-col size="6" style=" color: purple;">
           <h5 text-start no-margin>
             {{ 'CATEGORIES' | translate }}
           </h5>
         </ion-col>
         <ion-col size="6">
-          <ion-text color="primary">
+          <ion-text color="medium">
             <h5 class="link" no-margin text-end (click)="navigateTo(currentPath + '/categories')">
               {{ 'VIEW_ALL' | translate }}
             </h5>
@@ -112,7 +114,7 @@
             </h5>
           </ion-col>
           <ion-col size="6">
-            <ion-text color="primary">
+            <ion-text color="medium">
               <h5 class="link" no-margin text-end (click)="navigateTo(currentPath + '/places', { featured: 1 })">
                 {{ 'VIEW_ALL' | translate }}
               </h5>
@@ -153,7 +155,7 @@
             <h5 text-start no-margin>{{ 'NEW' | translate }}</h5>
           </ion-col>
           <ion-col size="6">
-            <ion-text color="primary">
+            <ion-text color="medium">
               <h5 class="link" no-margin text-end (click)="navigateTo(currentPath + '/places')">
                 {{ 'VIEW_ALL' | translate }}
               </h5>
@@ -194,8 +196,8 @@
             <h5 text-start no-margin>{{ 'NEARBY' | translate }}</h5>
           </ion-col>
           <ion-col size="6">
-            <ion-text color="primary">
-              <h5 class="link" ion-text color="primary" no-margin text-end (click)="navigateTo(currentPath + '/places', { nearby: 1 })">
+            <ion-text color="medium">
+              <h5 class="link" ion-text color="medium" no-margin text-end (click)="navigateTo(currentPath + '/places', { nearby: 1 })">
                 {{ 'VIEW_ALL' | translate }}
               </h5>
             </ion-text>
@@ -233,8 +235,8 @@
           <h5 text-start no-margin>{{ 'MORE_PLACES' | translate }}</h5>
         </ion-col>
         <ion-col size="6">
-          <ion-text color="primary">
-            <h5 class="link" ion-text color="primary" no-margin text-end (click)="navigateTo(currentPath + '/places')">
+          <ion-text color="medium">
+            <h5 class="link" ion-text color="medium" no-margin text-end (click)="navigateTo(currentPath + '/places')">
               {{ 'VIEW_ALL' | translate }}
             </h5>
           </ion-text>
